@@ -18,13 +18,17 @@ import (
 
 // Constants related to user metadata.
 const (
-	MetadataNamespace = "user"
+	// TODO(macgreagoir) Why are we forcing a namespace?
+	// MetadataNamespace = "user"
+	MetadataNamespace = ""
 
 	// This is defined by the cloud-init code:
 	// http://bazaar.launchpad.net/~cloud-init-dev/cloud-init/trunk/view/head:/cloudinit/sources/
 	// http://cloudinit.readthedocs.org/en/latest/
 	// Also see https://github.com/lxc/lxd/blob/master/specs/configuration.md.
-	UserdataKey = "user-data"
+	// TODO(macgreagoir) Testing without forcing a namespace.
+	// UserdataKey = "user-data"
+	UserdataKey = "user.user-data"
 
 	// CertificateFingerprintKey is a key that we define to associate
 	// a certificate fingerprint with an instance. We use this to clean
@@ -35,6 +39,11 @@ const (
 )
 
 func resolveConfigKey(name string, namespace ...string) string {
+	// TODO(macgreagoir) Testing without forcing a namespace. This should
+	// not be called, but just in case...
+	if len(namespace) == 0 {
+		return name
+	}
 	parts := append(namespace, name)
 	return strings.Join(parts, ".")
 }
@@ -91,7 +100,6 @@ type InstanceSpec struct {
 	// TODO(ericsnow) Other possible fields:
 	// Disks
 	// Networks
-	// Metadata
 	// Tags
 }
 
@@ -258,8 +266,10 @@ func resolveMetadata(metadata map[string]string) map[string]string {
 	config := make(map[string]string)
 
 	for name, val := range metadata {
-		key := resolveConfigKey(name, MetadataNamespace)
-		config[key] = val
+		// TODO(macgreagoir) Testing without forcing a namespace.
+		// key := resolveConfigKey(name, MetadataNamespace)
+		// config[key] = val
+		config[name] = val
 	}
 
 	return config
@@ -269,11 +279,13 @@ func extractMetadata(config map[string]string) map[string]string {
 	metadata := make(map[string]string)
 
 	for key, val := range config {
-		namespace, name := splitConfigKey(key)
-		if namespace != MetadataNamespace {
-			continue
-		}
-		metadata[name] = val
+		// TODO(macgreagoir) Testing without forcing a namespace
+		// namespace, name := splitConfigKey(key)
+		// if namespace != MetadataNamespace {
+		// 	continue
+		// }
+		// metadata[name] = val
+		metadata[key] = val
 	}
 
 	return metadata

@@ -130,6 +130,7 @@ func (manager *containerManager) CreateContainer(
 		return
 	}
 
+	// These will all be namespaced under lxdclient.MetadataNamespace
 	metadata := map[string]string{
 		lxdclient.UserdataKey: string(userData),
 		// An extra piece of info to let people figure out where this
