@@ -271,8 +271,12 @@ func (f failsProvisioning) Status() instance.InstanceStatus {
 	}
 }
 
+// TODO(macgreagoir) Neither LongWait nor ShortWait are quite right here, where
+// we need time for something to happen, but don't want to slow the tests down
+// as much as LongWait, when we expect SSH attempts to be quick in real life.
+// Really, we want to pass a clock to WaitSSH and use ShortWait, lp:1558657.
 var testSSHTimeout = environs.BootstrapDialOpts{
-	Timeout:        coretesting.ShortWait,
+	Timeout:        coretesting.LongWait / 3,
 	RetryDelay:     1 * time.Millisecond,
 	AddressesDelay: 1 * time.Millisecond,
 }
