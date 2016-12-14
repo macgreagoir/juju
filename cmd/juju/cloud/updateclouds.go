@@ -14,6 +14,7 @@ import (
 
 	"github.com/juju/cmd"
 	"github.com/juju/errors"
+	"github.com/juju/gnuflag"
 	"github.com/juju/utils"
 	"github.com/juju/utils/set"
 	"golang.org/x/crypto/openpgp"
@@ -51,7 +52,6 @@ var NewUpdateCloudsCommand = func() cmd.Command {
 func newUpdateCloudsCommand() cmd.Command {
 	return &updateCloudsCommand{
 		publicSigningKey: keys.JujuPublicKey,
-		publicCloudURL:   "https://streams.canonical.com/juju/public-clouds.syaml",
 	}
 }
 
@@ -61,6 +61,16 @@ func (c *updateCloudsCommand) Info() *cmd.Info {
 		Purpose: "Updates public cloud information available to Juju.",
 		Doc:     updateCloudsDoc,
 	}
+}
+
+func (c *updateCloudsCommand) SetFlags(f *gnuflag.FlagSet) {
+	c.CommandBase.SetFlags(f)
+	f.StringVar(
+		&c.publicCloudURL,
+		"public-cloud-url",
+		"https://streams.canonical.com/juju/public-clouds.syaml",
+		"URL of public Cloud YAML file",
+	)
 }
 
 func (c *updateCloudsCommand) Run(ctxt *cmd.Context) error {
