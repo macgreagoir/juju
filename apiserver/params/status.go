@@ -45,8 +45,9 @@ type MachineStatus struct {
 
 	DNSName string `json:"dns-name"`
 
-	// IPAddresses holds the IP addresses bound to this machine.
-	IPAddresses []string `json:"ip-addresses"`
+	// IPAddresses holds the IP addresses bound to this machine, mapped by
+	// their space.
+	IPAddresses map[string][]string `json:"ip-addresses"`
 
 	// InstanceId holds the unique identifier for this machine, based on
 	// what is supplied by the provider.
@@ -63,7 +64,7 @@ type MachineStatus struct {
 	// machine.
 	Containers map[string]MachineStatus `json:"containers"`
 
-	// Hardware holds a string of space-separated key=value pairs of
+	// Hardware holds a string of space-separated key=value pairs for each
 	// hardware specification datum.
 	Hardware string `json:"hardware"`
 

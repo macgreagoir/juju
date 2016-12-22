@@ -533,21 +533,18 @@ func makeMachineStatus(machine *state.Machine) (status params.MachineStatus) {
 		}
 		status.DNSName = addr.Value
 
-		mAddrs := machine.Addresses()
-		if len(mAddrs) == 0 {
-			logger.Debugf("no IP addresses fetched for machine %q", instid)
+		spacesAddrs, _ := machine.AllSpacesToAddresses()
+		if len(spacesAddrs) == 0 {
+			logger.Debugf("no spaces fetched for machine %q", instid)
 			// At least give it the newly created DNSName address, if it exists.
 			if addr.Value != "" {
-				mAddrs = append(mAddrs, addr)
+				// TODO(macgreagoir) This is lazy, and we may
+				// need to go back to spaces to look for this
+				// address.
+				spacesAddrs["unknown"] = append(spacesAddrs["unknown"], addr.Value)
 			}
 		}
-		for _, mAddr := range mAddrs {
-			switch mAddr.Scope {
-			case network.ScopeMachineLocal, network.ScopeLinkLocal:
-				continue
-			}
-			status.IPAddresses = append(status.IPAddresses, mAddr.Value)
-		}
+		status.IPAddresses = spacesAddrs
 	} else {
 		if errors.IsNotProvisioned(err) {
 			status.InstanceId = "pending"

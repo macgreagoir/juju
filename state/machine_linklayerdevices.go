@@ -897,6 +897,38 @@ func (m *Machine) AllNetworkAddresses() ([]network.Address, error) {
 	return networkAddresses, nil
 }
 
+// AllSpacesToAddresses returns a map of spaces to address lists for a machine.
+func (m *Machine) AllSpacesToAddresses() (map[string][]string, error) {
+	spaces := make(map[string][]string)
+	addresses, err := m.AllAddresses()
+	if err != nil {
+		return nil, errors.Trace(err)
+	}
+	for _, address := range addresses {
+		subnet, err := address.Subnet()
+		if err != nil {
+			if errors.IsNotFound(err) {
+				// We don't know what this subnet is, so it can't be a space. It
+				// might just be the loopback device.
+				continue
+			}
+			return nil, errors.Trace(err)
+		}
+		spaceName := subnet.SpaceName()
+		if spaceName != "" {
+			spaces[spaceName] = append(spaces[spaceName], address.Value())
+		}
+	}
+	for space, addrs := range spaces {
+		addrsSet := set.NewStrings()
+		for _, addr := range addrs {
+			addrsSet.Add(addr)
+		}
+		spaces[space] = addrsSet.SortedValues()
+	}
+	return spaces, nil
+}
+
 // deviceMapToSortedList takes a map from device name to LinkLayerDevice
 // object, and returns the list of LinkLayerDevice object using
 // NaturallySortDeviceNames
