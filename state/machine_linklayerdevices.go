@@ -908,14 +908,20 @@ func (m *Machine) AllSpacesToAddresses() (map[string][]string, error) {
 		subnet, err := address.Subnet()
 		if err != nil {
 			if errors.IsNotFound(err) {
-				// We don't know what this subnet is, so it can't be a space. It
-				// might just be the loopback device.
+				// We don't know what this subnet is, so it
+				// can't be a space. We're still interested in
+				// the address, unless it's a loopback device.
+				if !address.LoopbackConfigMethod() {
+					spaces["not-in-space"] = append(spaces["not-in-space"], address.Value())
+				}
 				continue
 			}
 			return nil, errors.Trace(err)
 		}
 		spaceName := subnet.SpaceName()
-		if spaceName != "" {
+		if spaceName == "" {
+			spaces["not-in-space"] = append(spaces["not-in-space"], address.Value())
+		} else {
 			spaces[spaceName] = append(spaces[spaceName], address.Value())
 		}
 	}

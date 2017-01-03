@@ -538,10 +538,11 @@ func makeMachineStatus(machine *state.Machine) (status params.MachineStatus) {
 			logger.Debugf("no spaces fetched for machine %q", instid)
 			// At least give it the newly created DNSName address, if it exists.
 			if addr.Value != "" {
-				// TODO(macgreagoir) This is lazy, and we may
-				// need to go back to spaces to look for this
-				// address.
-				spacesAddrs["unknown"] = append(spacesAddrs["unknown"], addr.Value)
+				// TODO(macgreagoir) This looks lazy, and we
+				// may need to go back to spaces to look for
+				// this address, but for now there is likely no
+				// space.
+				spacesAddrs["not-in-space"] = append(spacesAddrs["not-in-space"], addr.Value)
 			}
 		}
 		status.IPAddresses = spacesAddrs

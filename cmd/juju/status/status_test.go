@@ -176,7 +176,7 @@ var (
 			"since":   "01 Apr 15 01:23+10:00",
 		},
 		"dns-name":     "10.0.0.1",
-		"ip-addresses": []string{"10.0.0.1"},
+		"ip-addresses": map[string][]string{"not-in-space": {"10.0.0.1"}},
 		"instance-id":  "controller-0",
 		"machine-status": M{
 			"current": "pending",
@@ -192,7 +192,7 @@ var (
 			"since":   "01 Apr 15 01:23+10:00",
 		},
 		"dns-name":     "10.0.1.1",
-		"ip-addresses": []string{"10.0.1.1"},
+		"ip-addresses": map[string][]string{"not-in-space": {"10.0.1.1"}},
 		"instance-id":  "controller-1",
 		"machine-status": M{
 			"current": "pending",
@@ -207,7 +207,7 @@ var (
 			"since":   "01 Apr 15 01:23+10:00",
 		},
 		"dns-name":     "10.0.2.1",
-		"ip-addresses": []string{"10.0.2.1"},
+		"ip-addresses": map[string][]string{"not-in-space": {"10.0.2.1"}},
 		"instance-id":  "controller-2",
 		"machine-status": M{
 			"current": "pending",
@@ -222,7 +222,7 @@ var (
 			"since":   "01 Apr 15 01:23+10:00",
 		},
 		"dns-name":     "10.0.3.1",
-		"ip-addresses": []string{"10.0.3.1"},
+		"ip-addresses": map[string][]string{"not-in-space": {"10.0.3.1"}},
 		"instance-id":  "controller-3",
 		"machine-status": M{
 			"current": "pending",
@@ -237,7 +237,7 @@ var (
 			"since":   "01 Apr 15 01:23+10:00",
 		},
 		"dns-name":     "10.0.4.1",
-		"ip-addresses": []string{"10.0.4.1"},
+		"ip-addresses": map[string][]string{"not-in-space": {"10.0.4.1"}},
 		"instance-id":  "controller-4",
 		"machine-status": M{
 			"current": "pending",
@@ -264,7 +264,7 @@ var (
 							"since":   "01 Apr 15 01:23+10:00",
 						},
 						"dns-name":     "10.0.3.1",
-						"ip-addresses": []string{"10.0.3.1"},
+						"ip-addresses": map[string][]string{"not-in-space": {"10.0.3.1"}},
 						"instance-id":  "controller-3",
 						"machine-status": M{
 							"current": "pending",
@@ -274,7 +274,7 @@ var (
 					},
 				},
 				"dns-name":     "10.0.2.1",
-				"ip-addresses": []string{"10.0.2.1"},
+				"ip-addresses": map[string][]string{"not-in-space": {"10.0.2.1"}},
 				"instance-id":  "controller-2",
 				"machine-status": M{
 					"current": "pending",
@@ -296,7 +296,7 @@ var (
 			},
 		},
 		"dns-name":     "10.0.1.1",
-		"ip-addresses": []string{"10.0.1.1"},
+		"ip-addresses": map[string][]string{"not-in-space": {"10.0.1.1"}},
 		"instance-id":  "controller-1",
 		"machine-status": M{
 			"current": "pending",
@@ -402,7 +402,7 @@ var statusTests = []testCase{
 							"since":   "01 Apr 15 01:23+10:00",
 						},
 						"dns-name":     "10.0.0.1",
-						"ip-addresses": []string{"10.0.0.1", "10.0.0.2"},
+						"ip-addresses": map[string][]string{"not-in-space": {"10.0.0.1", "10.0.0.2"}},
 						"instance-id":  "controller-0",
 						"machine-status": M{
 							"current": "pending",
@@ -429,7 +429,7 @@ var statusTests = []testCase{
 							"since":   "01 Apr 15 01:23+10:00",
 						},
 						"dns-name":     "10.0.0.1",
-						"ip-addresses": []string{"10.0.0.1", "10.0.0.2"},
+						"ip-addresses": map[string][]string{"not-in-space": {"10.0.0.1", "10.0.0.2"}},
 						"instance-id":  "controller-0",
 						"machine-status": M{
 							"current": "pending",
@@ -452,7 +452,7 @@ var statusTests = []testCase{
 				"machines": M{
 					"0": M{
 						"dns-name":     "10.0.0.1",
-						"ip-addresses": []string{"10.0.0.1", "10.0.0.2"},
+						"ip-addresses": map[string][]string{"not-in-space": {"10.0.0.1", "10.0.0.2"}},
 						"instance-id":  "controller-0",
 						"machine-status": M{
 							"current": "pending",
@@ -492,7 +492,7 @@ var statusTests = []testCase{
 							"since":   "01 Apr 15 01:23+10:00",
 						},
 						"dns-name":     "10.0.0.1",
-						"ip-addresses": []string{"10.0.0.1", "10.0.0.2"},
+						"ip-addresses": map[string][]string{"not-in-space": {"10.0.0.1", "10.0.0.2"}},
 						"instance-id":  "controller-0",
 						"machine-status": M{
 							"current": "pending",
@@ -752,7 +752,7 @@ var statusTests = []testCase{
 					"2": machine2,
 					"3": M{
 						"dns-name":     "10.0.3.1",
-						"ip-addresses": []string{"10.0.3.1"},
+						"ip-addresses": map[string][]string{"not-in-space": {"10.0.3.1"}},
 						"instance-id":  "controller-3",
 						"machine-status": M{
 							"current": "pending",
@@ -768,7 +768,7 @@ var statusTests = []testCase{
 					},
 					"4": M{
 						"dns-name":     "10.0.4.1",
-						"ip-addresses": []string{"10.0.4.1"},
+						"ip-addresses": map[string][]string{"not-in-space": {"10.0.4.1"}},
 						"instance-id":  "controller-4",
 						"machine-status": M{
 							"current": "pending",
@@ -2011,7 +2011,7 @@ var statusTests = []testCase{
 									"since":   "01 Apr 15 01:23+10:00",
 								},
 								"dns-name":     "10.0.2.1",
-								"ip-addresses": []string{"10.0.2.1"},
+								"ip-addresses": map[string][]string{"not-in-space": {"10.0.2.1"}},
 								"instance-id":  "controller-2",
 								"machine-status": M{
 									"current": "pending",
@@ -2022,7 +2022,7 @@ var statusTests = []testCase{
 							},
 						},
 						"dns-name":     "10.0.1.1",
-						"ip-addresses": []string{"10.0.1.1"},
+						"ip-addresses": map[string][]string{"not-in-space": {"10.0.1.1"}},
 						"instance-id":  "controller-1",
 						"machine-status": M{
 							"current": "pending",
@@ -2594,7 +2594,7 @@ var statusTests = []testCase{
 							"since":   "01 Apr 15 01:23+10:00",
 						},
 						"dns-name":     "10.0.0.2",
-						"ip-addresses": []string{"10.0.0.2"},
+						"ip-addresses": map[string][]string{"not-in-space": {"10.0.0.2"}},
 						"instance-id":  "controller-0",
 						"machine-status": M{
 							"current": "pending",
@@ -2629,7 +2629,7 @@ var statusTests = []testCase{
 							"since":   "01 Apr 15 01:23+10:00",
 						},
 						"dns-name":     "2001:db8::0:1",
-						"ip-addresses": []string{"2001:db8::0:1"},
+						"ip-addresses": map[string][]string{"not-in-space": {"2001:db8::0:1"}},
 						"instance-id":  "controller-0",
 						"machine-status": M{
 							"current": "pending",
@@ -4103,7 +4103,8 @@ func (s *StatusSuite) TestFilterToContainer(c *gc.C) {
 		"      since: 01 Apr 15 01:23+10:00\n" +
 		"    dns-name: 10.0.0.1\n" +
 		"    ip-addresses:\n" +
-		"    - 10.0.0.1\n" +
+		"      not-in-space:\n" +
+		"      - 10.0.0.1\n" +
 		"    instance-id: controller-0\n" +
 		"    machine-status:\n" +
 		"      current: pending\n" +
